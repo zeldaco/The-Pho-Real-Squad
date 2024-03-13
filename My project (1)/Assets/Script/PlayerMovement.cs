@@ -1,7 +1,8 @@
 using UnityEngine:
 using System.Collections;
 
-public class PlayerController : MonoBehavior {
+public class PlayerController : MonoBehavior 
+{
     // Movement
     public float speed;
     public float jump;
@@ -11,7 +12,8 @@ public class PlayerController : MonoBehavior {
 
     private Vector2 movement = Vector3.left * 0.1f;
 
-    void Update () {
+    void Update () 
+    {
 
         //Move camera screen with player
         if (player.position.x > 1) 
@@ -21,7 +23,8 @@ public class PlayerController : MonoBehavior {
         transform.Translate(movement);
 
         // Grounded?
-        if (isGrounded == true) {
+        if (isGrounded == true) 
+        {
             // Jumping
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(Update.Arrow) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.W)){
                 
@@ -31,10 +34,12 @@ public class PlayerController : MonoBehavior {
         
         moveVelocity = 0;
         //Left Right Movement
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) 
+        {
             moveVelocity = -speed;
         }
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) 
+        {
             moveVelocity = speed;
         }
 
@@ -42,11 +47,13 @@ public class PlayerController : MonoBehavior {
     }
 
 
-    void OnCollisionEnter2D(Collision2D col) {
+    void OnCollisionEnter2D(Collision2D col) 
+    {
         Debug.Log("OnCollisionEnter2D");
         isGrounded = true;
     }
-    void onCollisionExit2D(Collision2D col) {
+    void onCollisionExit2D(Collision2D col) 
+    {
         Debug.Log("OnCollisionExit2D");
         isGrounded = false;
     }
