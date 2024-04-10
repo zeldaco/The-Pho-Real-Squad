@@ -13,15 +13,12 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpCoolDown;
     private float horizontalInput;
 
-    private GravityController gravityController;
-
-    private void Awake()
+    private void Awake() 
     {
         //Grab references for rigidbody and animator from object
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
-        gravityController = GetComponent<GravityController>();
 
     }
 
@@ -62,10 +59,9 @@ public class PlayerMovement : MonoBehaviour
 
 
     private void Jump() {
-        float jumpDirection = gravityController.IsGravityUp ? -1 : 1; // Invert jump direction if gravity is up
         if(isGrounded()) {
-            body.velocity = new Vector2(body.velocity.x, jumpPower * jumpDirection);
-            anim.SetTrigger("jump");
+        body.velocity = new Vector2(body.velocity.x, jumpPower);
+        anim.SetTrigger("jump");  
         }
         else if (onWall() && !isGrounded()) {
             if (horizontalInput == 0) {
@@ -86,8 +82,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool isGrounded() {
-        Vector2 castDirection = gravityController.IsGravityUp ? Vector2.up : Vector2.down;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, castDirection, 0.1f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
         return raycastHit.collider != null;
     }
 
