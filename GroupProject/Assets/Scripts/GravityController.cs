@@ -7,34 +7,37 @@ public class GravityController : MonoBehaviour
     private bool gravityUp = false;
     public bool IsGravityUp => gravityUp;
     private Quaternion targetRotation;
-    private Transform characterTransform; // Assume this is the transform of the character
+    private Transform characterTransform;
+
+    private float gravityFlipCooldown = 1.0f; // Time in seconds between gravity flips
+    private float lastGravityFlipTime = -2.0f; // Initialize to ensure gravity can flip at start
 
     private void Start()
     {
-        characterTransform = this.transform; // Or assign the character's transform however you see fit
-        targetRotation = characterTransform.rotation; // Initial rotation
+        characterTransform = this.transform;
+        targetRotation = characterTransform.rotation;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && Time.time - lastGravityFlipTime >= gravityFlipCooldown)
         {
+            lastGravityFlipTime = Time.time; // Update the last flip time
             gravityUp = !gravityUp;
 
             if (gravityUp)
             {
                 Physics2D.gravity = new Vector2(0, 9.8f);
-                targetRotation = Quaternion.Euler(180, 0, 0); // Target rotation for gravity up
+                targetRotation = Quaternion.Euler(180, 0, 0);
             }
             else
             {
                 Physics2D.gravity = new Vector2(0, -9.8f);
-                targetRotation = Quaternion.Euler(0, 0, 0); // Target rotation for gravity down
+                targetRotation = Quaternion.Euler(0, 0, 0);
             }
         }
 
         // Gradually rotate the character to the target rotation
-        characterTransform.rotation = Quaternion.Slerp(characterTransform.rotation, targetRotation, Time.deltaTime * 5); // Adjust 5 to your liking for speed
+        characterTransform.rotation = Quaternion.Slerp(characterTransform.rotation, targetRotation, Time.deltaTime * 5);
     }
 }
