@@ -8,34 +8,43 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 3;
     private int currentHealth;
-    public List<Image> hearts; // reference to heart asset in UI
+    public List<Image> hearts; // Reference to heart asset in UI
+    private float defaultYThreshold = -10f; // Default threshold for falling into the void
+    private float yThreshold; // Active threshold based on gravity
+    private GravityController gravityController;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         UpdateHeartsUI();
+        gravityController = GetComponent<GravityController>(); // Assuming GravityController is on the same GameObject
+        UpdateThreshold();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // logic for updating ui
+        UpdateThreshold(); // Ensure threshold is updated if gravity changes
+        // Check if the player has fallen beyond the threshold
+        if ((gravityController.IsGravityUp && transform.position.y > yThreshold) ||
+            (!gravityController.IsGravityUp && transform.position.y < yThreshold))
+        {
+            GameOver();
+        }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // check if the player collided with monster
-        if (collision.gameObject.tag == "Monster")
+        // Check if the player collided with a monster
+        if (collision.gameObject.CompareTag("Monster"))
         {
             LoseHeart();
         }
-
-        // check if player collected a heart
-        else if (collision.gameObject.tag == "Heart")
+        // Check if player collected a heart
+        else if (collision.gameObject.CompareTag("Heart"))
         {
             GainHeart();
-            Destroy(collision.gameObject); // remove heart from the game
+            Destroy(collision.gameObject); // Remove heart from the game
         }
     }
 
@@ -46,20 +55,19 @@ public class PlayerHealth : MonoBehaviour
             currentHealth--;
             UpdateHeartsUI();
         }
-
         if (currentHealth <= 0)
         {
             GameOver();
         }
-        
     }
 
     void GainHeart()
     {
-        
-        currentHealth++;
-        UpdateHeartsUI();
-    
+        if (currentHealth < maxHealth) // Ensure current health does not exceed max health
+        {
+            currentHealth++;
+            UpdateHeartsUI();
+        }
     }
 
     void UpdateHeartsUI()
@@ -67,13 +75,20 @@ public class PlayerHealth : MonoBehaviour
         // Loop through all heart images
         for (int i = 0; i < hearts.Count; i++)
         {
-        // Enable heart image if i < currentHealth, otherwise disable it
+            // Enable heart image if i < currentHealth, otherwise disable it
             hearts[i].enabled = i < currentHealth;
         }
     }
 
+    void UpdateThreshold()
+    {
+        // Adjust threshold based on the direction of gravity
+        yThreshold = gravityController.IsGravityUp ? defaultYThreshold : -defaultYThreshold;
+    }
+
     void GameOver()
     {
+        // Optionally add any game over logic or UI here
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
