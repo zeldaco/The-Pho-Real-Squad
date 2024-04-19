@@ -66,4 +66,10 @@ public class Health : MonoBehaviour
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
     }
+
+        public void AddHealth(float _value) //for adding health when grabbing a heart
+    {
+        currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
+    }
+
 }

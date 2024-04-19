@@ -40,12 +40,6 @@ public class PlayerHealth : MonoBehaviour
         {
             LoseHeart();
         }
-        // Check if player collected a heart
-        else if (collision.gameObject.CompareTag("Heart"))
-        {
-            GainHeart();
-            Destroy(collision.gameObject); // Remove heart from the game
-        }
     }
 
     void LoseHeart()
@@ -58,15 +52,6 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             GameOver();
-        }
-    }
-
-    void GainHeart()
-    {
-        if (currentHealth < maxHealth) // Ensure current health does not exceed max health
-        {
-            currentHealth++;
-            UpdateHeartsUI();
         }
     }
 
