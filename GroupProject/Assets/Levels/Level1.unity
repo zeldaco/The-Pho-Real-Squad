@@ -2444,7 +2444,7 @@ GameObject:
   - component: {fileID: 454364424}
   m_Layer: 0
   m_Name: catmonsters-7
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7622,9 +7622,9 @@ GameObject:
   - component: {fileID: 1331245790}
   - component: {fileID: 1331245788}
   - component: {fileID: 1331245787}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Cat2
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7639,7 +7639,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 38.79, y: 6.08, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 501153512}
@@ -8076,7 +8076,6 @@ GameObject:
   - component: {fileID: 1475835023}
   - component: {fileID: 1475835024}
   - component: {fileID: 1475835025}
-  - component: {fileID: 1475835027}
   - component: {fileID: 1475835028}
   m_Layer: 0
   m_Name: MainCharacter
@@ -8279,23 +8278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f625bb9c4cb43178b07604b92cda3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1475835027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1475835018}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdfeac1ff899348c5b41679a418ed264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 3
-  hearts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &1475835028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9210,7 +9192,7 @@ GameObject:
   - component: {fileID: 1662479998}
   m_Layer: 0
   m_Name: catmonsters-1
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
